@@ -2,17 +2,16 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-# ---------------------------------------
 # Configurações iniciais
-# ---------------------------------------
+
 st.set_page_config(page_title="Dashboard ISO 9001", layout="wide")
 
 st.title("📊Dashboard de Qualidade - ISO 9001")
 st.markdown("Monitoramento de indicadores de Não Conformidades (NCs)")
 
-# ---------------------------------------
+
 # Leitura dos dados
-# ---------------------------------------
+
 @st.cache_data
 def carregar_dados(caminho):
     df = pd.read_excel(caminho)
@@ -23,9 +22,9 @@ def carregar_dados(caminho):
 # Planilha maior
 df = carregar_dados("dados_ncs_maior.xlsx")
 
-# ---------------------------------------
-# Filtros interativos
-# ---------------------------------------
+
+# Filtros 
+
 col1, col2, col3 = st.columns(3)
 
 with col1:
@@ -40,10 +39,7 @@ df_filtro = df[
     (df['Status'].isin(status)) &
     (df['Gravidade'].isin(gravidade))
 ]
-
-# ---------------------------------------
 # Métricas principais
-# ---------------------------------------
 total_ncs = len(df_filtro)
 abertas = len(df_filtro[df_filtro['Status'] == 'Aberta'])
 fechadas = len(df_filtro[df_filtro['Status'] == 'Fechada'])
@@ -54,11 +50,7 @@ col1.metric("Total de NCs", total_ncs)
 col2.metric("NCs Abertas", abertas)
 col3.metric("NCs Fechadas", fechadas)
 col4.metric("Média de Dias de Atraso", tempo_medio)
-
-# ---------------------------------------
 # Gráficos
-# ---------------------------------------
-
 st.subheader("Análises Gráficas")
 
 col1, col2 = st.columns(2)
@@ -96,8 +88,6 @@ fig3 = px.line(
 )
 st.plotly_chart(fig3, config=plotly_config)
 
-# ---------------------------------------
 # Tabela detalhada
-# ---------------------------------------
 st.subheader("Tabela Detalhada de NCs")
 st.dataframe(df_filtro, use_container_width=True)
