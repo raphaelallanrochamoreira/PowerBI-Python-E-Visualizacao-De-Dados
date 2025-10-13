@@ -7,7 +7,7 @@ import plotly.express as px
 # ---------------------------------------
 st.set_page_config(page_title="Dashboard ISO 9001", layout="wide")
 
-st.title("📊 Dashboard de Qualidade - ISO 9001")
+st.title("📊Dashboard de Qualidade - ISO 9001")
 st.markdown("Monitoramento de indicadores de Não Conformidades (NCs)")
 
 # ---------------------------------------
